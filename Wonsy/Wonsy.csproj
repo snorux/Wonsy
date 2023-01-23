@@ -1,15 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <Version>0.0.1</Version>
     </PropertyGroup>
 
+	<Target Name="AddGitSha" BeforeTargets="GetAssemblyVersion" Returns="InformationalVersion">
+		<Exec ConsoleToMsBuild="true" Command="git rev-parse --short HEAD">
+			<Output TaskParameter="ConsoleOutput" PropertyName="GitSha" />
+		</Exec>
+
+		<PropertyGroup>
+			<InformationalVersion>$(GitSha)</InformationalVersion>
+		</PropertyGroup>
+	</Target>
+
     <ItemGroup>
         <PackageReference Include="Discord.Net" Version="3.9.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
         <PackageReference Include="Serilog" Version="2.12.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="config.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>
