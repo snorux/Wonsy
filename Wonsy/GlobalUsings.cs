@@ -8,3 +8,5 @@ global using Discord.Interactions;
 
 global using Wonsy.Models;
 global using Wonsy.Services;
+
+global using Microsoft.Extensions.Options;

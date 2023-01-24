@@ -5,7 +5,7 @@ namespace Wonsy
 {
     internal class Wonsy
     {
-        private readonly Configuration _config;
+        private readonly IConfiguration Configuration;
 
         private readonly DiscordSocketConfig _socketConfig = new()
         {
@@ -16,14 +16,13 @@ namespace Wonsy
         public Wonsy()
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
+                .SetBasePath(Path.Combine(AppContext.BaseDirectory, "Configs"))
                 .AddJsonFile("config.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            _config = configuration.Get<Configuration>();
-            _config.DevServers = configuration.GetSection("DevServers").Get<List<ulong>>();
+            this.Configuration = configuration;
 
-            if (string.IsNullOrEmpty(_config.BotToken))
+            if (string.IsNullOrEmpty(Configuration.GetSection("BotToken").Value))
                 throw new ArgumentNullException("The bot token cannot be found in config.json! Please check and make sure it's there!");
         }
 
@@ -32,7 +31,7 @@ namespace Wonsy
 
         public async Task MainAsync()
         {
-            var logLevel = _config.LogLevel switch
+            var logLevel = Configuration.GetSection("LogLevel").Value switch
             {
                 "verbose" => Serilog.Events.LogEventLevel.Verbose,
                 "debug" => Serilog.Events.LogEventLevel.Debug,
@@ -52,10 +51,12 @@ namespace Wonsy
             using var services = ConfigureServices(_socketConfig);
 
             services.GetRequiredService<Logging>();
+            services.GetRequiredService<InteractionHandler>();
 
             var client = services.GetRequiredService<DiscordSocketClient>();
 
-            await client.LoginAsync(TokenType.Bot, _config.BotToken);
+
+            await client.LoginAsync(TokenType.Bot, Configuration.GetSection("BotToken").Value);
             await client.StartAsync();
 
             await Task.Delay(Timeout.Infinite);
@@ -64,10 +65,11 @@ namespace Wonsy
         private ServiceProvider ConfigureServices(DiscordSocketConfig config)
         {
             var services = new ServiceCollection()
+                .Configure<Configuration>(this.Configuration)
                 .AddSingleton(_socketConfig)
-                .AddSingleton(_config)
                 .AddSingleton(new DiscordSocketClient(config))
                 .AddSingleton<Logging>()
+                .AddSingleton<InteractionHandler>()
                 .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()));
 
             return services.BuildServiceProvider();

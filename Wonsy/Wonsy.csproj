@@ -30,6 +30,7 @@
     <ItemGroup>
       <None Update="config.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Link>Configs\%(Filename)%(Extension)</Link>
       </None>
     </ItemGroup>
 </Project>
