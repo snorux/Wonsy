@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Wonsy
 {
-    internal class Wonsy
+    public class Wonsy
     {
         private readonly IConfiguration _config;
 

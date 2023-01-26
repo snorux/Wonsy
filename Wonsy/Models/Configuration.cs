@@ -1,13 +1,13 @@
 ﻿namespace Wonsy.Models
 {
-    internal class Configuration
+    public class Configuration
     {
         public string LogLevel { get; set; }
 
         public BotConfiguration BotConfig { get; set; }
     }
 
-    internal class BotConfiguration
+    public class BotConfiguration
     {
         public string BotToken { get; set; }
         

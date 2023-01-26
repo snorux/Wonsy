@@ -1,6 +1,6 @@
 ﻿namespace Wonsy.Services
 {
-    internal class Logging
+    public class Logging
     {
         private readonly DiscordSocketClient _client;
         private readonly InteractionService _interaction;
