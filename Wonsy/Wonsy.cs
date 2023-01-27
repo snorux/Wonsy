@@ -16,6 +16,7 @@ namespace Wonsy
         public Wonsy()
         {
             // Add a way to create default config file if it doesn't exist:
+            Configuration.CheckConfig();
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Path.Combine(AppContext.BaseDirectory, "Configs"))
