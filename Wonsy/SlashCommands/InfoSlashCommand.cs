@@ -3,7 +3,7 @@ using Wonsy.Extensions;
 
 namespace Wonsy.SlashCommands
 {
-    public class InfoCommand : InteractionModuleBase
+    public class InfoSlashCommand : InteractionModuleBase
     {
         [SlashCommand("info", "Displays information about this bot")]
         public async Task GetInformation()
@@ -22,7 +22,7 @@ namespace Wonsy.SlashCommands
 
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithColor(Constants.InformationColor);
-            embedBuilder.WithDescription($"Wonsy is a discord bot made by Snowy#9716 [{MentionUtils.MentionUser(107389572958158848)}] for use in [GFL ZE Discord](https://discord.gg/gflze). The source code is available on [GitHub](https://github.com/snooooowy/Wonsy)\n\n" +
+            embedBuilder.WithDescription($"Wonsy is a discord bot made by {MentionUtils.MentionUser(107389572958158848)} for use in [GFL ZE Discord](https://discord.gg/gflze). The source code is available on [GitHub](https://github.com/snooooowy/Wonsy)\n\n" +
                 $"Commit Hash: `{commitHash}`\n" +
                 $"User Count: `{client.Guilds.Select(x => x.MemberCount).Sum()}`\n" +
                 $"Guilds Count: `{client.Guilds.Count}`\n" +
