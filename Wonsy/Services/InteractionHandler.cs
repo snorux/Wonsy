@@ -12,35 +12,37 @@
             _serviceProvider = serviceProvider;
             _client = client;
 
-            _client.SlashCommandExecuted += SlashCommandExecuted;
+            _client.InteractionCreated += HandleInteraction;
+            _interactionService.SlashCommandExecuted += SlashCommandExecuted;
         }
 
-        private async Task SlashCommandExecuted(SocketSlashCommand command)
+        private async Task HandleInteraction(SocketInteraction interaction)
         {
             try
             {
-                // Create an execution context that matches the generic type parameter of your InteractionModuleBase<T> modules.
-                var context = new SocketInteractionContext(_client, command);
-
-                // Execute the incoming command.
+                var context = new SocketInteractionContext(_client, interaction);
                 var result = await _interactionService.ExecuteCommandAsync(context, _serviceProvider);
 
-                if (!result.IsSuccess)
-                    switch (result.Error)
-                    {
-                        case InteractionCommandError.UnmetPrecondition:
-                            // implement
-                            break;
-                        default:
-                            break;
-                    }
             }
             catch
             {
-                // If Slash Command execution fails it is most likely that the original interaction acknowledgement will persist. It is a good idea to delete the original
-                // response, or at least let the user know that something went wrong during the command execution.
-                if (command.Type is InteractionType.ApplicationCommand)
-                    await command.GetOriginalResponseAsync().ContinueWith(async (msg) => await msg.Result.DeleteAsync());
+                if (interaction.Type is InteractionType.ApplicationCommand)
+                    await interaction.GetOriginalResponseAsync().ContinueWith(async (msg) => await msg.Result.DeleteAsync());
+            }
+        }
+
+        private async Task SlashCommandExecuted(SlashCommandInfo info, IInteractionContext context, IResult result)
+        {
+            if (!result.IsSuccess)
+            {
+                switch (result.Error)
+                {
+                    case InteractionCommandError.UnmetPrecondition:
+                        await context.Interaction.RespondAsync(result.ErrorReason);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
