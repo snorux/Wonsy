@@ -4,7 +4,6 @@ namespace Wonsy.SlashCommands
 {
     public class InfoSlashCommand : InteractionModuleBase
     {
-        [BotOwnerOnly]
         [SlashCommand("info", "Displays information about this bot")]
         public async Task GetInformation()
         {
