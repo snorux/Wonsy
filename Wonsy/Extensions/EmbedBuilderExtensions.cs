@@ -8,5 +8,13 @@
                 .WithFooter(footer => footer.Text = $"Requested by {context.User.Username}#{context.User.Discriminator}")
                 .WithCurrentTimestamp();
         }
+
+        public static void WithInformationColor(this EmbedBuilder builder)
+            => builder.WithColor(Constants.InformationColor);
+        public static void WithWarningColor(this EmbedBuilder builder)
+            => builder.WithColor(Constants.WarningColor);
+
+        public static void WithErrorColor(this EmbedBuilder builder)
+            => builder.WithColor(Constants.ErrorColor);
     }
 }

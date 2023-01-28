@@ -38,11 +38,18 @@
                 switch (result.Error)
                 {
                     case InteractionCommandError.UnmetPrecondition:
-                        await context.Interaction.RespondAsync(result.ErrorReason);
+                        await context.Interaction.RespondAsync(result.ErrorReason, ephemeral: true);
+                        break;
+                    case InteractionCommandError.Exception:
+                        await context.ReplyCommandException(result.ErrorReason);
                         break;
                     default:
                         break;
                 }
+            }
+            else
+            {
+                context.LogCommandUsed();
             }
         }
     }

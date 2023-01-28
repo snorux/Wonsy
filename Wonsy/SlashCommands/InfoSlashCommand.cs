@@ -20,7 +20,7 @@ namespace Wonsy.SlashCommands
             var client = (DiscordSocketClient)Context.Client;
 
             EmbedBuilder embedBuilder = new();
-            embedBuilder.WithColor(Constants.InformationColor);
+            embedBuilder.WithInformationColor();
             embedBuilder.WithDescription($"Wonsy is a discord bot made by {MentionUtils.MentionUser(107389572958158848)} for use in [GFL ZE Discord](https://discord.gg/gflze). The source code is available on [GitHub](https://github.com/snooooowy/Wonsy)\n\n" +
                 $"Commit Hash: `{commitHash}`\n" +
                 $"User Count: `{client.Guilds.Select(x => x.MemberCount).Sum()}`\n" +
