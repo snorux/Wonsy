@@ -4,17 +4,9 @@ namespace Wonsy.SlashCommands
 {
     public class InfoSlashCommand : InteractionModuleBase
     {
-        private readonly ZEApi _zeApi;
-        public InfoSlashCommand(ZEApi zeApi) 
-        {
-            _zeApi = zeApi;
-        }
-
         [SlashCommand("info", "Displays information about this bot")]
         public async Task GetInformation()
         {
-            var test = await _zeApi.GetTimeleftAsync();
-            var test2 = await _zeApi.GetCooldownAsync("ze_diddle_v3");
             string netVersion = Environment.Version.ToString();
             string discordNetVersion = DiscordConfig.Version;
             string botVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);

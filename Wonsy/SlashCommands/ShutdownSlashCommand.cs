@@ -16,7 +16,7 @@
             embedBuilder.WithDescription($"Shutting down the bot.\n\n" +
                 $"Uptime was `{upTime}`\n" +
                 $"Peak memory usage was `{peakMemUsage.ToReadableString()}`");
-            embedBuilder.AddRequestedByFooter(Context);
+            embedBuilder.WithRequestedByFooter(Context);
 
             await RespondAsync(embed: embedBuilder.Build());
 
