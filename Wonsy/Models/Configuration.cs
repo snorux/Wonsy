@@ -8,6 +8,8 @@ namespace Wonsy.Models
 
         public BotConfiguration BotConfig { get; set; }
 
+        public ZEApiConfiguration ZEApi { get; set; }
+
         public static void CheckConfig()
         {
             var configFolder = Path.Combine(AppContext.BaseDirectory, "Configs");
@@ -34,8 +36,8 @@ namespace Wonsy.Models
                 File.WriteAllText(Path.Combine(configFolder, "config.json"), JsonConvert.SerializeObject(config, Formatting.Indented));
 
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Created new bot configuration file with default values. \n" +
-                              $"Set your secrets in {Path.Combine(configFolder, "config.json")} before running the bot again. \n \n" +
+                Console.WriteLine("Created new bot configuration file with default values.\n" +
+                              $"Set your secrets in {Path.Combine(configFolder, "config.json")} before running the bot again.\n\n" +
                               "Exiting in 10 seconds...");
                 Console.ResetColor();
 
@@ -62,5 +64,14 @@ namespace Wonsy.Models
         public bool DevMode { get; set; }
 
         public List<ulong> DevServers { get; set; }
+    }
+
+    public class ZEApiConfiguration
+    {
+        public string APIWebsite { get; set; }
+
+        public string AuthorizationHeader { get; set; }
+
+        public string AuthorizationToken { get; set; }
     }
 }

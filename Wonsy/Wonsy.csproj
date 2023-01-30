@@ -3,7 +3,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
     </PropertyGroup>
 
 	<Target Name="AddGitSha" BeforeTargets="GetAssemblyVersion" Returns="InformationalVersion">
@@ -21,6 +21,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
         <PackageReference Include="Serilog" Version="2.12.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />

@@ -67,6 +67,7 @@ namespace Wonsy
                 .AddSingleton<InteractionHandler>()
                 .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()));
 
+            services.AddHttpClient<ZEApi>();
             return services.BuildServiceProvider();
         }
     }
