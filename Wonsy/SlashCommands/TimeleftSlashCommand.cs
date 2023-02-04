@@ -2,7 +2,7 @@
 {
     public class TimeleftSlashCommand : InteractionModuleBase
     {
-        private ZEApi _zeApi;
+        private readonly ZEApi _zeApi;
 
         public TimeleftSlashCommand(ZEApi zeApi) 
         {

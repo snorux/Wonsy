@@ -11,7 +11,7 @@
             _zeApi = zeApi;
         }
 
-        [SlashCommand("mapinfo", "Gets the map cooldown of the specified map")]
+        [SlashCommand("mapinfo", "Gets the map info of the specified map")]
         public async Task GetMapCooldown([Summary("mapname", "The map you want to search"), Autocomplete(typeof(MapNameAutoCompleter))] string mapName)
         {
             if (!_mapCache.IsMapValid(mapName))
