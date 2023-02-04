@@ -30,7 +30,8 @@ namespace Wonsy.Models
                         ActivityType = 3,
                         DevMode = true,
                         DevServers = new List<ulong>(),
-                    }
+                    },
+                    ZEApi = new ZEApiConfiguration()
                 };
 
                 File.WriteAllText(Path.Combine(configFolder, "config.json"), JsonConvert.SerializeObject(config, Formatting.Indented));
