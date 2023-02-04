@@ -73,5 +73,7 @@ namespace Wonsy.Models
         public string AuthorizationHeader { get; set; }
 
         public string AuthorizationToken { get; set; }
+
+        public string MapListUrl { get; set; }
     }
 }

@@ -5,7 +5,7 @@
         public static void WithRequestedByFooter(this EmbedBuilder builder, IInteractionContext context) 
         {
             builder
-                .WithFooter(footer => footer.Text = $"Requested by {context.User.Username}#{context.User.Discriminator}")
+                .WithFooter(footer => footer.Text = $"Requested by {context.User.FormattedValue()}")
                 .WithCurrentTimestamp();
         }
 

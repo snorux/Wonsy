@@ -34,7 +34,7 @@ namespace Wonsy.Services
             Log.Information("Adding slash commands");
             await _interactionService.AddModulesAsync(Assembly.GetEntryAssembly(), _serviceProvider);
 
-            Log.Information("Starting...");
+            Log.Information("Starting");
             await _client.StartAsync();
 
             _client.Ready += ReadyAsync;

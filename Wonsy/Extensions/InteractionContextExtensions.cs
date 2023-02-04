@@ -7,35 +7,26 @@ namespace Wonsy.Extensions
     {
         public static void LogCommandUsed(this IInteractionContext context) 
         {
-            var commandName = context.Interaction switch
-            {
-                SocketSlashCommand socketSlashCommand => socketSlashCommand.CommandName,
-                SocketUserCommand socketUserCommand => socketUserCommand.CommandName,
-                _ => null
-            };
+            var command = context.Interaction as SocketSlashCommand;
 
             Log.Information($"Slash Command Used\n\t" +
-                $"User: {context.User.Username}#{context.User.Discriminator} [{context.User.Id}]\n\t" +
-                $"Server: {(context.Guild == null ? "PRIVATE" : $"{context.Guild.Name} [{context.Guild.Id}]")}\n\t" +
-                $"Channel: {(context.Channel == null ? "PRIVATE" : $"{context.Channel.Name} [{context.Channel.Id}]")}\n\t" +
-                $"Command: {commandName}");
+                $"User: {context.User.FormattedValue(true)}\n\t" +
+                $"Server: {context.Guild.FormattedValue(true)}\n\t" +
+                $"Channel: {context.Channel.FormattedValue(true)}\n\t" +
+                $"Command: {command.CommandName}\n\t" +
+                $"Arguments: {(command.Data.Options.Count > 0 ? command.Data.Options.OptionsToString() : "No arguments" )}");
         }
 
         public static async Task ReplyCommandException(this IInteractionContext context, string reason) 
         {
             var referenceCode = GenerateRandomCode();
-            var commandName = context.Interaction switch
-            {
-                SocketSlashCommand socketSlashCommand => socketSlashCommand.CommandName,
-                SocketUserCommand socketUserCommand => socketUserCommand.CommandName,
-                _ => null
-            };
+            var command = context.Interaction as SocketSlashCommand;
 
             // Send to user
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithErrorColor();
             embedBuilder.WithTitle("Uh oh, something went wrong");
-            embedBuilder.WithDescription($"Sorry, an error occured while trying to process the command `{commandName}`.\n\n" +
+            embedBuilder.WithDescription($"Sorry, an error occured while trying to process the command `{command.CommandName}`.\n\n" +
                 $"**Reference ID:** `{referenceCode}`\n" +
                 $"Please report the error to {MentionUtils.MentionUser(107389572958158848)} with the above reference id.");
 
@@ -45,10 +36,11 @@ namespace Wonsy.Extensions
             // Log for our reference:
             Log.Error($"Slash Command Error\n\t" +
                 $"Reference ID: {referenceCode}\n\t" +
-                $"User: {context.User.Username}#{context.User.Discriminator} [{context.User.Id}]\n\t" +
-                $"Server: {(context.Guild == null ? "PRIVATE" : $"{context.Guild.Name} [{context.Guild.Id}]")}\n\t" +
-                $"Channel: {(context.Channel == null ? "PRIVATE" : $"{context.Channel.Name} [{context.Channel.Id}]")}\n\t" +
-                $"Command: {commandName}\n\t" +
+                $"User: {context.User.FormattedValue(true)}\n\t" +
+                $"Server: {context.Guild.FormattedValue(true)}\n\t" +
+                $"Channel: {context.Channel.FormattedValue(true)}\n\t" +
+                $"Command: {command.CommandName}\n\t" +
+                $"Arguments:  {(command.Data.Options.Count > 0 ? command.Data.Options.OptionsToString() : "No arguments")}\n\t" +
                 $"Error Reason: {reason}");
         }
 

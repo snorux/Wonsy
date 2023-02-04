@@ -17,7 +17,7 @@
 
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithInformationColor();
-            embedBuilder.WithDescription($"Map information for \'{result.CurrentMap}\'\n");
+            embedBuilder.WithDescription($"Current information for \'{result.CurrentMap}\'\n");
             embedBuilder.AddField("Timeleft", result.Timeleft, true);
             embedBuilder.AddField("Extends Used", $"{result.ExtendsLeft} / {result.TotalExtends}", true);
             embedBuilder.AddField("Nextmap", result.NextMap, true);

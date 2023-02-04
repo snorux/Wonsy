@@ -8,5 +8,6 @@ global using Wonsy.Models;
 global using Wonsy.Services;
 global using Wonsy.Extensions;
 global using Wonsy.Attributes;
+global using Wonsy.AutoCompleters;
 
 global using Microsoft.Extensions.Options;

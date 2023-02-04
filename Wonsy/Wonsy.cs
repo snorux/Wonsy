@@ -61,13 +61,15 @@ namespace Wonsy
         {
             var services = new ServiceCollection()
                 .Configure<Configuration>(_config)
+                .AddHttpClient()
                 .AddSingleton(new DiscordSocketClient(config))
                 .AddSingleton<Startup>()
                 .AddSingleton<Logging>()
                 .AddSingleton<InteractionHandler>()
+                .AddSingleton<MapCache>()
+                .AddSingleton<ZEApi>()
                 .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()));
 
-            services.AddHttpClient<ZEApi>();
             return services.BuildServiceProvider();
         }
     }
