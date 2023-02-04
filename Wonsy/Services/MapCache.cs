@@ -16,7 +16,7 @@ namespace Wonsy.Services
             _httpClient = httpClient;
 
             Log.Information("Starting timer for map cache");
-            _timer = new Timer(GetMapList, null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10));
+            _timer = new Timer(GetMapList, null, TimeSpan.FromSeconds(3), TimeSpan.FromHours(1));
         }
 
         private async void GetMapList(object state)
