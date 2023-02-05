@@ -76,5 +76,7 @@ namespace Wonsy.Models
         public string AuthorizationToken { get; set; }
 
         public string MapListUrl { get; set; }
+
+        public string FastDLUrl { get; set; }
     }
 }

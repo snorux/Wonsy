@@ -50,6 +50,6 @@ namespace Wonsy.Services
             => _maps?.Exists(x => x.MapName == mapName) ?? false;
 
         public MapModel GetMap(string mapName)
-            => _maps?.Find(x => x.MapName == mapName);
+            => _maps?.Find(x => x.MapName == mapName) ?? null;
     }
 }

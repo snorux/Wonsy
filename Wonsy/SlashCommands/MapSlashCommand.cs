@@ -4,11 +4,13 @@
     {
         private readonly MapCache _mapCache;
         private readonly ZEApi _zeApi;
+        private Configuration _config;
 
-        public MapSlashCommand(MapCache mapCache, ZEApi zeApi)
+        public MapSlashCommand(MapCache mapCache, ZEApi zeApi, IOptions<Configuration> config)
         {
             _mapCache = mapCache;
             _zeApi = zeApi;
+            _config = config.Value;
         }
 
         [SlashCommand("mapinfo", "Gets the map info of the specified map")]
@@ -22,13 +24,18 @@
 
             await Context.Interaction.DeferAsync();
             var result = await _zeApi.GetCooldownAsync(mapName);
+            var cachedMap = _mapCache.GetMap(result.Map);
+
+            var size = cachedMap == null ? "Unable to get map size" : cachedMap.FileSize.ToReadableString();
+            var fastdlLink = cachedMap == null ? "Unable to get fastdl link" : 
+                cachedMap.IsMoreThan150MB ? $"{_config.ZEApi.FastDLUrl}{result.Map}.bsp" : $"{_config.ZEApi.FastDLUrl}{result.Map}.bsp.bz2";
 
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithInformationColor();
             embedBuilder.WithDescription($"**{result.Map}**\n\n" +
                 $"Cooldown: `{(result.Cooldown == "-1" ? "Not on cooldown" : $"{result.Cooldown} map{(int.Parse(result.Cooldown) > 1 ? "s" : "")}")}`\n" +
-                $"Size: `{_mapCache.GetMap(result.Map)?.FileSize.ToReadableString() ?? "Unable to get map size"}`\n" +
-                $"Download Link: `To be implemented.`");
+                $"Size: `{size}`\n" +
+                $"Download Link: [FastDL Link]({fastdlLink})");
             embedBuilder.WithRequestedByFooter(Context);
 
             await FollowupAsync(embed: embedBuilder.Build());
