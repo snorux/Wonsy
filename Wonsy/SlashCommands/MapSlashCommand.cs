@@ -4,7 +4,7 @@
     {
         private readonly MapCache _mapCache;
         private readonly ZEApi _zeApi;
-        private Configuration _config;
+        private readonly Configuration _config;
 
         public MapSlashCommand(MapCache mapCache, ZEApi zeApi, IOptions<Configuration> config)
         {
