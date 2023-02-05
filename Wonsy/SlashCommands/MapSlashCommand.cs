@@ -26,7 +26,7 @@
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithInformationColor();
             embedBuilder.WithDescription($"**{result.Map}**\n\n" +
-                $"Cooldown: `{(result.Cooldown == "-1" ? "Not on cooldown." : $"{result.Cooldown}")} map{(int.Parse(result.Cooldown) > 1 ? "s" : "")}`\n" +
+                $"Cooldown: `{(result.Cooldown == "-1" ? "Not on cooldown" : $"{result.Cooldown} map{(int.Parse(result.Cooldown) > 1 ? "s" : "")}")}`\n" +
                 $"Size: `{_mapCache.GetMap(result.Map)?.FileSize.ToReadableString() ?? "Unable to get map size"}`\n" +
                 $"Download Link: `To be implemented.`");
             embedBuilder.WithRequestedByFooter(Context);
