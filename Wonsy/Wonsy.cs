@@ -19,7 +19,7 @@ namespace Wonsy
             Configuration.CheckConfig();
 
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Path.Combine(AppContext.BaseDirectory, "Configs"))
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "Configs"))
                 .AddJsonFile("config.json", optional: false, reloadOnChange: true)
                 .Build();
 
