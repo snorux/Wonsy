@@ -6,9 +6,9 @@
 
         public string Timeleft { get; set; }
 
-        public string ExtendsLeft { get; set; }
+        public int CurrentExtends { get; set; }
 
-        public string TotalExtends { get; set; }
+        public int TotalExtends { get; set; }
 
         public string NextMap { get; set; }
     }

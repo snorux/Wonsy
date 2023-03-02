@@ -19,7 +19,7 @@
             embedBuilder.WithInformationColor();
             embedBuilder.WithDescription($"Current information for \'{result.CurrentMap}\'\n");
             embedBuilder.AddField("Timeleft", result.Timeleft, true);
-            embedBuilder.AddField("Extends Used", $"{result.ExtendsLeft} / {result.TotalExtends}", true);
+            embedBuilder.AddField("Extends Used", $"{result.CurrentExtends} / {result.TotalExtends}", true);
             embedBuilder.AddField("Nextmap", result.NextMap, true);
             embedBuilder.WithRequestedByFooter(Context);
 
