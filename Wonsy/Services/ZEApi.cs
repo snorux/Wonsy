@@ -29,13 +29,13 @@ namespace Wonsy.Services
 
         public async Task<TimeleftModel> GetTimeleftAsync()
         {
-            var responseData = await CallApiAsync("timeleft");
+            var responseData = await CallApiAsync("GetTimeleft");
             return JsonConvert.DeserializeObject<TimeleftModel>(responseData);
         }
 
         public async Task<CooldownModel> GetCooldownAsync(string mapName)
         {
-            var responseData = await CallApiAsync($"cooldown/?map={mapName}_cooldown");
+            var responseData = await CallApiAsync($"GetMapCooldown?map={mapName}");
             return JsonConvert.DeserializeObject<CooldownModel>(responseData);
         }
     }

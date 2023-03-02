@@ -12,7 +12,7 @@ namespace Wonsy.Models
 
         public static void CheckConfig()
         {
-            var configFolder = Path.Combine(AppContext.BaseDirectory, "Configs");
+            var configFolder = Path.Combine(Directory.GetCurrentDirectory(), "Configs");
             if (!Directory.Exists(configFolder))
                 Directory.CreateDirectory(configFolder);
 
