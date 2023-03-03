@@ -4,6 +4,6 @@
     {
         public string MapName { get; set; }
 
-        public string Cooldown { get; set; }
+        public int Cooldown { get; set; }
     }
 }

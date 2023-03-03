@@ -33,7 +33,7 @@
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithInformationColor();
             embedBuilder.WithDescription($"**{result.MapName}**\n\n" +
-                $"Cooldown: `{(result.Cooldown == "-1" ? "Not on cooldown" : $"{result.Cooldown} map{(int.Parse(result.Cooldown) > 1 ? "s" : "")}")}`\n" +
+                $"Cooldown: `{(result.Cooldown == 0 ? "Not on cooldown" : $"{result.Cooldown} map{(result.Cooldown > 1 ? "s" : "")}")}`\n" +
                 $"Size: `{size}`\n" +
                 $"Download Link: [FastDL Link]({fastdlLink})");
             embedBuilder.WithRequestedByFooter(Context);
