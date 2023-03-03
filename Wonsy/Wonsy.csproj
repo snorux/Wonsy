@@ -3,7 +3,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>0.0.6</Version>
+        <Version>0.0.7</Version>
     </PropertyGroup>
 
 	<Target Name="AddGitSha" BeforeTargets="GetAssemblyVersion" Returns="InformationalVersion">
