@@ -24,15 +24,15 @@
 
             await Context.Interaction.DeferAsync();
             var result = await _zeApi.GetCooldownAsync(mapName);
-            var cachedMap = _mapCache.GetMap(result.Map);
+            var cachedMap = _mapCache.GetMap(result.MapName);
 
             var size = cachedMap == null ? "Unable to get map size" : cachedMap.FileSize.ToReadableString();
             var fastdlLink = cachedMap == null ? "Unable to get fastdl link" : 
-                cachedMap.IsMoreThan150MB ? $"{_config.ZEApi.FastDLUrl}{result.Map}.bsp" : $"{_config.ZEApi.FastDLUrl}{result.Map}.bsp.bz2";
+                cachedMap.IsMoreThan150MB ? $"{_config.ZEApi.FastDLUrl}{result.MapName}.bsp" : $"{_config.ZEApi.FastDLUrl}{result.MapName}.bsp.bz2";
 
             EmbedBuilder embedBuilder = new();
             embedBuilder.WithInformationColor();
-            embedBuilder.WithDescription($"**{result.Map}**\n\n" +
+            embedBuilder.WithDescription($"**{result.MapName}**\n\n" +
                 $"Cooldown: `{(result.Cooldown == "-1" ? "Not on cooldown" : $"{result.Cooldown} map{(int.Parse(result.Cooldown) > 1 ? "s" : "")}")}`\n" +
                 $"Size: `{size}`\n" +
                 $"Download Link: [FastDL Link]({fastdlLink})");
