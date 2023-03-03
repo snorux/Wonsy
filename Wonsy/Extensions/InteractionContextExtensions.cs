@@ -22,17 +22,6 @@ namespace Wonsy.Extensions
             var referenceCode = GenerateRandomCode();
             var command = context.Interaction as SocketSlashCommand;
 
-            // Send to user
-            EmbedBuilder embedBuilder = new();
-            embedBuilder.WithErrorColor();
-            embedBuilder.WithTitle("Uh oh, something went wrong");
-            embedBuilder.WithDescription($"Sorry, an error occured while trying to process the command `{command.CommandName}`.\n\n" +
-                $"**Reference ID:** `{referenceCode}`\n" +
-                $"Please report the error to {MentionUtils.MentionUser(107389572958158848)} with the above reference id.");
-
-            await context.Interaction.DeferAsync();
-            await context.Interaction.FollowupAsync(embed: embedBuilder.Build());
-
             // Log for our reference:
             Log.Error($"Slash Command Error\n\t" +
                 $"Reference ID: {referenceCode}\n\t" +
@@ -42,6 +31,20 @@ namespace Wonsy.Extensions
                 $"Command: {command.CommandName}\n\t" +
                 $"Arguments:  {(command.Data.Options.Count > 0 ? command.Data.Options.OptionsToString() : "No arguments")}\n\t" +
                 $"Error Reason: {reason}");
+
+            // Send to user
+            EmbedBuilder embedBuilder = new();
+            embedBuilder.WithErrorColor();
+            embedBuilder.WithTitle("Uh oh, something went wrong");
+            embedBuilder.WithDescription($"Sorry, an error occured while trying to process the command `{command.CommandName}`.\n\n" +
+                $"**Reference ID:** `{referenceCode}`\n" +
+                $"Please report the error to {MentionUtils.MentionUser(107389572958158848)} with the above reference id.");
+
+            
+            if (context.Interaction.HasResponded)
+                await context.Interaction.FollowupAsync(embed: embedBuilder.Build());
+            else
+                await context.Interaction.RespondAsync(embed: embedBuilder.Build());
         }
 
         public static string GenerateRandomCode()
